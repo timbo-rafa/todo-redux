@@ -20,6 +20,8 @@
       }
     ],
     "paths": {
+      "@features/todo": ["./src/features/todo/index.ts"],
+      "@redux-store": ["./src/store/index.ts"],
       "@/*": ["./src/*"]
     }
   },
