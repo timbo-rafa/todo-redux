@@ -1,26 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { TodoItem } from './create-todo.hook'
 
-export type TodoItem = {
-    id: string;
-    isCompleted: boolean;
-    text: string;
-}
+
 
 type TodoState = {
     todoList: TodoItem[]
 }
 
+type AddTodoAction = { payload: TodoItem }
+
+
 const initialState: TodoState = { todoList: [] }
 
-export const todoSlice = createSlice({
+const todoSlice = createSlice({
     name: 'todo',
     initialState,
     reducers: {
-        add: (state, action) => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes
+        // Redux Toolkit allows us to write "mutating" logic in reducers. It
+        // doesn't actually mutate the state because it uses the Immer library,
+        // which detects changes to a "draft state" and produces a brand new
+        // immutable state based off those changes
+        add: (state, action: AddTodoAction) => {
             state.todoList.push(action.payload)
         },
         remove: (state, action) => {
@@ -36,6 +36,6 @@ export const todoSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { add, markAsComplete, remove } = todoSlice.actions
+export const todoActions = todoSlice.actions
 
-export const todoReducer =  todoSlice.reducer
+export const todoReducer = todoSlice.reducer
