@@ -1,12 +1,20 @@
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
-import { TodoItem as TodoItemType } from "./create-todo.hook";
 
-export type TodoItemProps = TodoItemType
-export function TodoItem({id, isCompleted, text}: TodoItemProps) {
+export type TodoItem = {
+    id: string;
+    isCompleted: boolean;
+    text: string;
+}
+
+export type TodoItemProps = TodoItem & {
+    onTodoToggle: (todo: TodoItem) => void
+}
+
+export function TodoItem({onTodoToggle, ...todo}: TodoItemProps) {
     return <>
-    <Typography >{id}</Typography>
-    <Checkbox checked={isCompleted} />
-    <Typography>{text}</Typography>
+    <Typography >{todo.id}</Typography>
+    <Checkbox checked={todo.isCompleted} onClick={() => onTodoToggle(todo)}/>
+    <Typography>{todo.text}</Typography>
     </>
 }

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { TodoItem } from './create-todo.hook'
+import { TodoItem } from './TodoItem'
 
 
 
@@ -7,7 +7,10 @@ type TodoState = {
     todoList: TodoItem[]
 }
 
-type AddTodoAction = { payload: TodoItem }
+type Action<T> = {payload: T}
+
+type AddTodoAction = Action<TodoItem>
+type UpdateTodoAction = Action<TodoItem>
 
 
 const initialState: TodoState = { todoList: [] }
@@ -26,10 +29,10 @@ const todoSlice = createSlice({
         remove: (state, action) => {
             state.todoList = state.todoList.filter(todoItem => todoItem.id === action.payload)
         },
-        markAsComplete: (state, action) => {
-            const todoItem = state.todoList.find(todoItem => todoItem.id === action.payload)
-            if (todoItem) {
-                todoItem.isCompleted = true
+        update: (state, action: UpdateTodoAction) => {
+            const todoItemIndex = state.todoList.findIndex(todoItem => todoItem.id === action.payload.id)
+            if (todoItemIndex !== -1) {
+                state.todoList[todoItemIndex] = action.payload
             }
         }
     },
